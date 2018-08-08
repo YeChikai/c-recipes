@@ -28,7 +28,7 @@ static void talk(char *msg);
 dog_t * dog_init()
 {
     dog_t *dog = (dog_t *)malloc(sizeof(dog_t));
-    animal_t *animal = (animal_t *)animal_init("hello-dog");
+    animal_t *animal = (animal_t *)animal_init("dog");
     memcpy(&(dog->base), animal, sizeof(animal_t));
 
     dog->base.animal_ops->eat = eat;

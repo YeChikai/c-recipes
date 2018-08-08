@@ -18,19 +18,26 @@
 #include "dog.h"
 #include "cat.h"
 
+#define OWNER_CAT   "Tom"
+
+
 int main(int argc, const char *argv[])
 {
-    cat_t *cat = cat_init();
+    cat_t *cat = cat_init(OWNER_CAT);
     dog_t *dog = dog_init();
 
-    /* dog 类测试 */
-    animal_eat(dog, "bones");
-    animal_walk(dog, 5);
-    animal_talk(dog, "wuang wuang wuang...");
-
     /* cat 类测试 */
-    animal_eat(cat, "fish");
-    animal_walk(cat, 3);
-    animal_talk(cat, "miao miao miao...");
+    animal_eat(&(cat->base), "fish");
+    animal_walk(&(cat->base), 3);
+    animal_talk(&(cat->base), "miao miao miao...");
+    cat->hunt("mouse");
+    printf("My owner is %s.\n\n", cat->owner);
+
+    /* dog 类测试 */
+    animal_eat(&(dog->base), "bones");
+    animal_walk(&(dog->base), 5);
+    animal_talk(&(dog->base), "wuang wuang wuang...");
 
 }
+
+

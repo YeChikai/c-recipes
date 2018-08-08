@@ -15,23 +15,23 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <stdio.h>
 #include "animal-base.h"
 
 /* 基类的构造函数，需要显示调用 */
 animal_t * animal_init(char *name)
 {
     assert(name != NULL);
+
     size_t name_len = strlen(name);
 
-    animal_t *animal = (animal_t *)malloc(sizeof(animal_t)
-            + sizeof(animal_ops_t) + name_len + 1);
-    memset(animal, 0, (sizeof(animal_t) + sizeof(animal_ops_t)
-                + name_len + 1));
-    animal->name = (char *)animal + sizeof(animal_t);
+    animal_t *animal = (animal_t *)malloc( sizeof(animal_t) );
+    memset(animal, 0, sizeof(animal_t));
+
+    animal->name = (char *)malloc( name_len + 1 );
     memcpy(animal->name, name, name_len);
-    animal->animal_ops = (animal_ops_t *)((char *)animal
-            + sizeof(animal_t) + name_len + 1);
+
+    animal->animal_ops = (animal_ops_t *)malloc( sizeof(animal_ops_t) );
 
     return animal;
 }

@@ -25,17 +25,24 @@ static void walk(int steps);
 
 static void talk(char *msg);
 
-cat_t * cat_init()
+static void hunt(const char *prey);
+
+
+cat_t * cat_init(char* owner)
 {
     cat_t *cat = (cat_t *)malloc(sizeof(cat_t));
-    animal_t *animal = (animal_t *)animal_init("");
+    animal_t *animal = (animal_t *)animal_init("cat");
     memcpy(&(cat->base), animal, sizeof(animal_t));
 
     cat->base.animal_ops->eat = eat;
     cat->base.animal_ops->walk = walk;
     cat->base.animal_ops->talk = talk;
 
+    cat->owner = owner;
+    cat->hunt = hunt;
+
     animal_die(animal);
+
     return cat;
 }
 
@@ -58,3 +65,9 @@ static void talk(char *msg)
 {
     printf("I'm a cat, I talk my language %s\n", msg);
 }
+
+static void hunt(const char *prey)
+{
+    printf("As a cat, I hunt %s every day\n", prey);
+}
+
